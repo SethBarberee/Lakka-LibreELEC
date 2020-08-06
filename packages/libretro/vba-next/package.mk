@@ -35,7 +35,11 @@ PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
 make_target() {
-  make -f Makefile.libretro
+    if [[ "$ARCH" =~ "arm" ]]; then
+	make -f Makefile.libretro platform=unix-armv HAVE_NEON=1
+    else
+	make -f Makefile.libretro
+    fi
 }
 
 makeinstall_target() {
